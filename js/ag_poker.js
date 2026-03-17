@@ -22,6 +22,58 @@ function playDrawPoker() {
    var handValueText = document.getElementById("handValue");
    var betSelection = document.getElementById("bet");
    var bankbox = document.getElementById("bank");
+
+// Set the initial values of the pokergame object
+pokerGame.currentBank = 500;
+pokerGame.currentet = 25;
+
+//Create a new deck of cards and shuffle it
+var myDeck = new pokerDeck();
+myDeck.shuffle();
+console.log(myDeck);
+
+bankbox.value = pokerGame.currentBank;
+betSelection.onchange = function(e) {
+   pokerGame.currentBet = 
+   parseInt(e.target.options[e.target.selectedIndex].value);
+}
+
+// Restart the game when the Reset button is clicked
+resetButton.addEventListener("click", function() {
+   pokerGame.currentBank = 500;
+   bankbox.value = pokerGame.currentBank;
+   enableObj(dealButton);
+   enableObj(betSelection);
+   disableObj(drawButton);
+   disableObj(standButton);
+});
+
+// Enable the Draw and stand buttons after the deal
+dealButton.addEventListener("click", function() {
+   if (pokerGame.currentBank >= pokerGame.currentBank) {
+   disableObj(dealButton);
+   disableObj(betSelection);
+   enableObj(drawButton);
+   enableObj(standButton);
+   bankbox.value = pokerGame.placeBet();
+   } else {
+      alert("Reduce the size of your bet");
+   }
+});
+
+// Enable the Deal and Bet options when the current hand ends
+drawButton.addEventListener("click", function() {
+   enableObj(dealButton);
+   enableObj(betSelection);
+   disableObj(drawButton);
+   disableObj(standButton);
+});
+standButton.addEventListener("click", function() {
+   enableObj(dealButton);
+   enableObj(betSelection);
+   disableObj(drawButton);
+   disableObj(standButton);
+});
 }
 
 //Disable POker Button
