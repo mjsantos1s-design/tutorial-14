@@ -39,7 +39,7 @@ var pokerGame = {
    currentBank: null,
    currentet: null,
 
-   placeBet: function(){
+   placeBet: function() {
       this.currentBank -= this.currentBet;
       return this.currentBank;
    }
@@ -52,6 +52,11 @@ function pokerCard(cardSuit, cardRank) {
    this.rankValue = null;
 }
 
+/* Method to reference the image source file for a card */
+pokerCard.prototype.cardImage = function() {
+   var suitAbbr = this.suit.substring(0, 1).toLowerCase();
+   return suitAbbr + this.rankValue + ".png";
+}
 /* Constructor function for poker decks */
 function pokerDeck() {
    this.cards = new Array(52);
@@ -70,8 +75,20 @@ function pokerDeck() {
 
    //Method to randomly sort the deck
    this.shuffle = function() {
-      this.cards.sort(function () {
+      this.cards.sort(function() {
          return 0.5 - Math.random();
       });
    };
+}
+
+// Method deal cards from the deck into a poker hand
+this.dealTo = function(pokerHand) {
+   for (var i = 0; i < pokerHand.cards.length; i++) {
+      pokerHand.cards[i] = this.cards.shift();
+   }
+}
+
+/* Constructor function for poker hands */
+function pokerHand(handLength) {
+   this.cards = new Array(handLength);
 }

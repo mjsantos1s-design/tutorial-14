@@ -22,6 +22,7 @@ function playDrawPoker() {
    var handValueText = document.getElementById("handValue");
    var betSelection = document.getElementById("bet");
    var bankbox = document.getElementById("bank");
+   var cardImages = document.querySelectorAll("img.cardImg");
 
 // Set the initial values of the pokergame object
 pokerGame.currentBank = 500;
@@ -30,7 +31,9 @@ pokerGame.currentet = 25;
 //Create a new deck of cards and shuffle it
 var myDeck = new pokerDeck();
 myDeck.shuffle();
-console.log(myDeck);
+
+// Create a pokerHand object
+var myHand = new pokerHand(5);
 
 bankbox.value = pokerGame.currentBank;
 betSelection.onchange = function(e) {
@@ -50,12 +53,26 @@ resetButton.addEventListener("click", function() {
 
 // Enable the Draw and stand buttons after the deal
 dealButton.addEventListener("click", function() {
-   if (pokerGame.currentBank >= pokerGame.currentBank) {
+   if (pokerGame.currentBank >= pokerGame.currentBet) {
    disableObj(dealButton);
    disableObj(betSelection);
    enableObj(drawButton);
    enableObj(standButton);
    bankbox.value = pokerGame.placeBet();
+
+   //Deal cards into the poker hand after confirming
+   //There are at least 10 cards in the deck
+   if (myDeck.cards.length < 10) {
+      myDeck = new pokerDeck();
+      myDeck.shuffle();
+   }
+   myDeck.dealTo(myHand);
+
+   //Display the card images on the table
+   for (var i = 0; i < cardImages.length; i++) {
+      cardImages[i].src = myHand.cards[i].cardImage();
+   }
+
    } else {
       alert("Reduce the size of your bet");
    }
