@@ -37,8 +37,7 @@ var myHand = new pokerHand(5);
 
 bankbox.value = pokerGame.currentBank;
 betSelection.onchange = function(e) {
-   pokerGame.currentBet = 
-   parseInt(e.target.options[e.target.selectedIndex].value);
+   pokerGame.currentBet = parseInt(e.target.options[e.target.selectedIndex].value);
 }
 
 // Restart the game when the Reset button is clicked
@@ -91,9 +90,8 @@ standButton.addEventListener("click", function() {
    disableObj(drawButton);
    disableObj(standButton);
 });
-}
 
-//Disable POker Button
+//Disable Poker Button
 function disableObj(obj) {
    obj.disabled = true;
    obj.style.opacity = 0.25;
@@ -103,4 +101,5 @@ function disableObj(obj) {
 function enableObj(obj) {
    obj.disabled = false;
    obj.style.opacity = 1;
+}
 }
